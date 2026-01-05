@@ -1,0 +1,9 @@
+[remmina]
+name=Local RDP Desktop
+server=localhost:80
+protocol=RDP
+username=ubuntu
+password=ubuntu
+colordepth=32
+resolution_width=1920
+resolution_height=1080

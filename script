@@ -1,0 +1,28 @@
+ser@euroser:~/Desktop/remote anyd$ sudo docker exec -it remote-desktop bash -c "cat /usr/bin/entrypoint"
+#!/usr/bin/env bash
+
+# Create the user account
+if ! id ubuntu >/dev/null 2>&1; then
+    groupadd --gid 1020 ubuntu
+    useradd --shell /bin/bash --uid 1020 --gid 1020 --groups sudo --password "$(openssl passwd ubuntu)" --create-home --home-dir /home/ubuntu ubuntu
+fi
+
+# Remove existing sesman/xrdp PID files to prevent rdp sessions hanging on container restart
+Xvfb :99 -screen 0 1920x1080x24 &
+export DISPLAY=:99
+su ubuntu -c "dbus-launch --exit-with-session xfce4-session &"
+sleep 5
+su ubuntu -c "anydesk &"
+[ ! -f /var/run/xrdp/xrdp-sesman.pid ] || rm -f /var/run/xrdp/xrdp-sesman.pid
+[ ! -f /var/run/xrdp/xrdp.pid ] || rm -f /var/run/xrdp/xrdp.pid
+
+# Start xrdp sesman service
+/usr/sbin/xrdp-sesman
+
+# Run xrdp in foreground if no commands specified
+if [ -z "$1" ]; then
+    /usr/sbin/xrdp --nodaemon
+else
+    /usr/sbin/xrdp
+    exec "$@"
+fi
