@@ -1,6 +1,6 @@
-# Docker RDP - Escritorio Remoto con XFCE
+# Docker RDP con AnyDesk - Escritorio Remoto con XFCE
 
-Este proyecto configura un contenedor Docker con un servidor RDP completo, incluyendo escritorio XFCE y navegadores web.
+Este proyecto configura un contenedor Docker con un servidor RDP completo, escritorio XFCE, navegadores web y AnyDesk para acceso remoto fácil.
 
 ## 🚀 Inicio Rápido
 
@@ -10,18 +10,33 @@ Este proyecto configura un contenedor Docker con un servidor RDP completo, inclu
 sudo docker-compose up -d
 
 # O usando Docker directamente
-sudo docker run -p 80:3389 --memory=4g -d scottyhardy/docker-remote-desktop
+sudo docker run -p 80:3389 --memory=4g -d ghcr.io/orangedarkblack/my_rdp_docker:latest
 ```
 
-### Conectar por RDP
+### Obtener ID y Contraseña de AnyDesk
+```bash
+# Ejecutar el script para obtener ID y configurar contraseña
+sudo ./get_anydesk_id.sh "tupassword"
+
+# Salida esperada:
+# ID de AnyDesk: 123456789
+# Contraseña de AnyDesk: tupassword
+```
+
+### Conectar por AnyDesk
+1. Abre AnyDesk en tu dispositivo
+2. Ingresa el ID obtenido
+3. Usa la contraseña configurada
+
+### Conectar por RDP (alternativo)
 ```bash
 # Con Remmina (GUI)
-# Servidor: 179.51.107.228:80
+# Servidor: localhost:80 (o IP del servidor)
 # Usuario: ubuntu
 # Contraseña: ubuntu
 
 # O con línea de comandos
-xfreerdp /u:ubuntu /p:ubuntu /v:179.51.107.228:80 /cert-ignore
+xfreerdp /u:ubuntu /p:ubuntu /v:localhost:80 /cert-ignore
 ```
 
 ## 📋 Requisitos

@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   remote-desktop:
-    image: remote-desktop-custom-v2
+    image: ghcr.io/orangedarkblack/my_rdp_docker:latest
     container_name: remote-desktop
     ports:
       - "80:3389"
