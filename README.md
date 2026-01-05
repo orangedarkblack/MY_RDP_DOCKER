@@ -13,6 +13,18 @@ sudo docker-compose up -d
 sudo docker run -p 80:3389 --memory=4g -d ghcr.io/orangedarkblack/my_rdp_docker:latest
 ```
 
+### Para usar en otro PC (con imagen de GitHub)
+```bash
+# Iniciar sesión en GitHub Container Registry
+docker login ghcr.io
+
+# Descargar la imagen
+docker pull ghcr.io/orangedarkblack/my_rdp_docker:latest
+
+# Ejecutar con Docker Compose
+sudo docker-compose up -d
+```
+
 ### Obtener ID y Contraseña de AnyDesk
 ```bash
 # Ejecutar el script para obtener ID y configurar contraseña
@@ -113,12 +125,12 @@ sudo docker system prune -f
 
 ### Desde la misma red
 ```bash
-xfreerdp /u:ubuntu /p:ubuntu /v:192.168.58.138:80 /cert-ignore
+xfreerdp /u:ubuntu /p:ubuntu /v:0.0.0.0:80 /cert-ignore
 ```
 
 ### Desde internet
 ```bash
-xfreerdp /u:ubuntu /p:ubuntu /v:179.51.107.228:80 /cert-ignore
+xfreerdp /u:ubuntu /p:ubuntu /v:0.0.0.0:80 /cert-ignore
 ```
 
 ## 📦 Contenido del Contenedor
